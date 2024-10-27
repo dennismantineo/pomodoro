@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+</head>
+<body>
+    <div class="pomodoro-display">
+        <div class="timer">
+            <p class="timer" id="timer-minutes-seconds"></p>
+        </div>
+        <div class="buttons">
+            <button class="button" id="start-button">Start</button>
+            <button class="button" id="stop-button">Stop</button>
+        </div>
+        <div class="focus-pause">
+            <p class="text"></p>
+        </div>
+    </div>
+</body>
+</html>
 
+<script>
+    function pomodoroTimer() {
+        var minutes = 25;
+        var secondss = 0;
+        var timerDisplay = document.getElementById('timer-minutes-seconds');
+        var timer;
+
+        function updateTimer() {
+            timerDisplay.textContent = minutes, ' : ', seconds; 
+        }
+
+        function countdownTimer() {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    console.log("Timer Finished");
+                    clearInterval(timer);
+                    return;
+                }
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+
+            updateTimer();
+        }
+    }
+
+    document.getElementById('start-button').addEventListener('click', function() {
+                if (!timer) { // Prevent multiple intervals
+                    updateTimer();
+                    timer = setInterval(countdownTimer, 1000);
+                }
+            });
+    
+    pomodoroTimer();
+</script>
